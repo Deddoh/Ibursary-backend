@@ -1,0 +1,844 @@
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bursary Application Form</title>
+    <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <style>
+        .required{
+            color: red;;
+        }
+        .show_next{
+            display: inline;
+            
+        }
+        .hide{
+            display: none;
+        }
+        .show{
+            display: inline;
+        }
+        a:hover{
+        text-decoration: none;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+           align-items: center;
+            flex-direction: column;
+
+        }
+        .row_buttons{
+            display: flex;
+            justify-content: space-around;
+            flex-direction: row;
+        }
+        .table-wrapper{
+    /* box-shadow: 0 0 1px 0 rgba(0,0,0,.25); */
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+        }
+        .table-wrap{
+            box-shadow: 0 0 10px 0 rgba(0,0,0,.25);
+        }
+
+thead{
+    color: #337AB7;
+}
+.qtns{
+    display: flex;
+    justify-content: column;
+    flex-direction: column;
+    margin: 0 20px;
+}
+.table-qtns{
+    margin: 0 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+#siblings{
+    display: flex;
+    justify-content: space-around;
+}
+#docs_upload{
+    display: flex;
+    justify-content: space-around;
+    margin: 0 20px;
+}
+    </style>
+ 
+</head>
+<body class="container">
+    
+    <div class="row">
+        <div class="card table-wrapper">
+            <div class="card-body">
+                <div class="card table-wrapper">
+                    <h1>Please confirm the details for submission</h1>
+                </div>
+                <br>
+
+                <div class="card">
+                    {% if messages %}
+                    {% for message in messages %}
+                        {{message}}
+                    {% endfor %}
+                {% endif %}
+                </div>
+                {% block content%}
+                <form action="{% url 'test_submission' %}"  method="POST" novalidate autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- {{form}} -->
+
+                    <section id="first">
+                        <div >
+                            <h1>Personal Details</h1>
+                            <hr>
+                            <br>
+    
+                            <!-- <div class="form-row"> -->
+                                <!-- <div class="form-group col">
+                                    <label >First Name</label>
+                       
+                                    {{form.first_name}}
+                                </div> -->
+                                <!-- <div class="form-group col">
+                                    <label >Middle Name</label>
+                                   {{form.middle_name}}
+                                </div>
+                                <div class="form-group col">
+                                    <label >Last Name</label>
+                                    {{form.last_name}}
+                                </div>
+                            </div> -->
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <label >Gender</label>
+                                    {{form.gender}}
+                                </div>
+                                <div class="form-group col">
+                                    <label >Phone Number</label>
+                                    {{form.phone_number}}
+                                </div>
+                                <div class="form-group col">
+                                    <label >Physical Challenge?</label>
+                                    <select  id="disabledd" class="form-control form-control-lg">
+                                    <option value="1.0">Yes</option>
+                                    <option value="0.0">No</option>
+                                    </select>
+        
+                                </div>
+                            </div>
+                            <div class="form-row hide" id="disability_form">
+                                <div class="form-group col">
+                                    {{form.disability_form}}
+                                </div>
+                                
+                            </div>
+    
+                        </div>
+                        <br>
+                        <div id="firstt">
+                            <!-- <div style="display: flex; justify-content:center"> -->
+                                <h1>School details</h1>
+                                <hr>
+                            <!-- </div> -->
+                            <br>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label >School Type</label>
+                                <select name="school_type" id="school_type" class="form-control form-control-lg">
+                                    <option value="university">University</option>
+                                    <option value="secondary">Secondary</option>
+                                </select>
+                            </div>
+                            <div class="form-group col">
+                                <label for="name">Institution Name</label>
+                                {{form.institution}}
+                              <span>{{form.institution.errors}}</span>
+                            </div>
+                    
+                            
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col hide" id="school_admitted">
+                                <label>School admitted</label>
+                                <select name="school_admitted" id="sch_admitted" class="form-control form-control-lg">
+                                    <option value="national">National</option>
+                                    <option value="county">County</option>
+                                    <option value="subcounty">Sub-County/District</option>
+                                    <option value="day">Day school</option>
+                                </select>
+                               
+                            </div>
+                            <div class="form-group col">
+                                <label for="Reg">Registration Number</label>
+                                {{form.reg}}
+                                <span>{{form.reg.errors}}</span>
+                            </div>
+                            <div class="form-group col">
+                                <label for="Year">Year/Class</label>
+                                {{form.year_of_study}}
+                                <span>{{form.year_of_study.errors}}</span>
+                            </div>
+                          
+                        </div>
+    
+                       
+    
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="total">Total Fees</label>
+                                {{form.total_fee}}
+                                <span>{{form.total_fee.errors}}</span>
+                            </div>
+                            <div class="form-group col">
+                                <label for="paid">Paid/Able To Raise</label>
+                                {{form.paid}}
+                                <span>{{form.paid.errors}}</span>
+                            </div>
+                            <div class="form-group col">
+                                <label for="outstanding">Outstanding Balance</label>
+                                {{form.outstanding_balance}}
+                                <span>{{form.outstanding_balance.errors}}</span>
+                            </div>
+    
+                        </div>
+                            <!-- <div class="form-group col">
+                                <label>Form upload</label>
+                                
+                                {{form.chief}}
+                            </div> -->
+    
+                        <!-- </div> -->
+                        <div>
+                            <a type="button" id="secNext" onclick="next_from_first_page()" class="btn btn-success" >Next</a>
+                            
+                        </div>
+                        </div>
+                        </section>
+    <!-- ########################################## -->
+
+
+                <br>
+
+                <section id="sec" class="hide">
+                    <div ><h1>Parents/Guardian's Details</h1></div>
+                    <br>
+                    <div class="form-row">
+                        
+                        <div class="form-group col">
+                            <label>Please indicate your family type</label>
+                            <!-- {{form.status}} -->
+                            <select name="status"  class="form-control form-control-lg family_type">
+                                <option value="both_parents_alive">Both parents alive</option>
+                                <option value="single_father">Single father</option>
+                                <option value="single_mother">Single mother</option>
+                                <option value="one_parent_deceased">One parent deceased</option>
+                                <option value="total_orphan">Orphan: Both biological parents deceased</option>
+                                <option value="partial_orphan">Abandoned</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label >Have you benefitted from the CDF fund?</label>
+                            <select name="benefitted"  class="form-control form-control-lg benefitted">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="panel-group card hide" id="additional_parent_info">
+                        <div class="panel panel-default">
+                        
+                            <div class="panel-heading card-header">
+                                <h4 class="panel-title">
+                                    <a href="#panel1" class="accordion-toggle" data-toggle="collapse" data-parent="#additional_parent_info">
+                                        Financier(s)
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse in" id="panel1">
+                                <div class="panel-body">
+                                    <h4>If an orphan, who has been paying for your school fees?</h4>
+                                    <div style="margin: 0 10px;">
+                                    <!-- <div class="form-group form-check">
+                                    {{form.guardian_as_financier}}
+                                    <label for="gaf" class="form-check-label">Guardian</label>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        {{form.well_wishers_as_financier}}
+                                        <label for="waf" class="form-check-label">Sponsor/Well-wishers</label>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        {{form.other_financier}}
+                                        <label class="form-check-label">Other</label>
+                                    </div>
+                                    <div class="form-group">
+                                        {{form.other_financiers}}
+                                    </div> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+
+                    <div class="form-row hide" id="donor">
+                        <div class="form-group col">
+                            <label >Source</label>
+                            {{form.fund_source}}
+                        </div>
+                        <div class="form-group col">
+                            <label >Amount</label>
+                            {{form.fund_source_amount}}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="name">First Name</label>
+                            <!-- <input type="text" class="form-control form-control-lg" name="course"> -->
+                            {{form.p_first_name}}
+                        </div>
+                        <div class="form-group col">
+                            <label for="Reg">Middle Name</label>
+                            <!-- <input type="text" class="form-control form-control-lg " id="y" name="class"> -->
+                            {{form.p_middle_name}}
+                        </div>
+                        <div class="form-group col">
+                            <label for="reg">Last Name</label>
+                            {{form.p_last_name}}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="name">Occupation</label>
+                            <!-- <input type="text" class="form-control form-control-lg" name="course"> -->
+                            {{form.p_occupation}}
+                        </div>
+                        <div class="form-group col">
+                            <label for="Reg">Phone</label>
+                            <!-- <input type="text" class="form-control form-control-lg " id="y" name="class"> -->
+                            {{form.p_phone}}
+                        </div>
+                        <div class="form-group col">
+                            <label for="reg">ID Number</label>
+                            {{form.p_id_number}}
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="name">Employed</label>
+                            <!-- <input type="text" class="form-control form-control-lg" name="course"> -->
+                            <select name="p_employed" id="u" class="form-control form-control-lg">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="Reg">Highest Level of education</label>
+                            <!-- <input type="text" class="form-control form-control-lg " id="y" name="class"> -->
+                            <select name="p_education_level" id="" class="form-control form-control-lg">
+                                <option value="none">None</option>
+                                <option value="primary">Primary</option>
+                                <option value="secondary">Secondary</option>
+                                <option value="certificate">Certificate</option>
+                                <option value="diploma">Diploma</option>
+                                <option value="degree">Degree</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="reg">NHIF Deduction Rate</label>
+                            <select name="p_nhif" class="form-control form-control-lg">
+                                <option value="0">0</option>
+                                <option value="150">150</option>
+                                <option value="300">300</option>
+                                <option value="400">400</option>
+                                <option value="500">500</option>
+                                <option value="600">600</option>
+                                <option value="750">750</option>
+                                <option value="850">850</option>
+                                <option value="900">900</option>
+                                <option value="950">950</option>
+                                <option value="1000">1000</option>
+                                <option value="1100">1100</option>
+                                <option value="1300">1300</option>
+                                <option value="1400">1400</option>
+                                <option value="1500">1500</option>
+                                <option value="1600">1600</option>
+                                <option value="1700">1700</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <br>
+                    <h2>Income Details</h2>
+                    <hr>
+                    <h6 class="required" sthyle="font-style: italic;">
+                        Please indicate parent's income in each of the categories below.*
+                    </h6>
+
+
+                    <br>
+                    <div class="form-row" fxLayout.sm="column" fxLayout.lt-sm="column">
+                        <div class="form-group col">
+                            <label>Pension</label>
+                            {{form.pension_income}}
+                        </div>
+                        <div class="form-group col">
+                            <label>Relief</label>
+                            {{form.relief_income}}
+                        </div>
+                        <div class="form-group col">
+                            <label>Business</label>
+                            {{form.business_income}}
+                        </div>
+                        <div class="form-group col">
+                            <label>Farming</label>
+                            {{form.farming_income}}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-row" fxLayout.sm="column" fxLayout.lt-sm="column">
+
+                        <div class="form-group col">
+                            <label>Private financial groups</label>
+                            {{form.private_groups_income}}
+                        </div>
+                        <div class="form-group col">
+                            <label>Well Wishers</label>
+                            {{form.well_wishers_income}}
+                        </div>
+                        <div class="form-group col">
+                            <label>Casual Labour</label>
+                            {{form.casual_labour_income}}
+                        </div>
+                        <div class="form-group col">
+                            <label>Other Income</label>
+                            {{form.other_income}}
+                        </div>
+                    </div>
+                    <br>
+                    <h4>Gross income for the last 12 months - (Ksh)</h4>
+                    <hr>
+                    <h6 class="required">Gross Income: (This means income from salary, business and farming)*</h6>
+                        <div class="table-wrap">
+                            <div class="table-responsive">
+                        <table class="table table-hover" >
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Father</th>
+                                    <th>Mother</th>
+                                    <th>Guardian/ Sponsor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>GROSS INCOME</strong></td>
+                                    <td>
+                                        <div>
+                                            {{form.father_gross_income}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            {{form.mother_gross_income}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            {{form.guardian_gross_income}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                    <br>
+                    <h4>Applicant's siblings in educational institutions</h4>
+                    <hr>
+                    <div id="siblingss">
+                    <div class="table-wrap">
+                        
+                            <div class="qtns">
+                                <div class="form-group">
+                                    <label>How many Brothers and Sisters do you have?</label>
+                                    <input type="number" name="disability" class="form-control form-control-lg">
+                                    <!-- test -->
+                                    <!-- {{form.disability}}  -->
+                                    <!-- {{form.number_of_siblings}} -->
+                                </div>
+                                <div class="form-group">
+                                    <label>How many children does your guardian have?</label>
+                                    {{form.number_of_siblings}}
+                                    <!-- {{form.guardian_children}} -->
+                                </div>
+                                <div class="form-group">
+                                    <label>How many are working/in business/farming?</label>
+                                    {{form.working_siblings}}
+                                </div>
+                                <div class="form-group">
+                                    <label>How many are in secondary school?</label>
+                                    {{form.siblings_in_secondary}}
+                                </div>
+                                <div class="form-group">
+                                    <label>How many are in Post-Secondary Institution?</label>
+                                    {{form.siblings_in_post_secondary}}
+                                </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="table-wrap table-qtns">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Sibling's name/Guardian's children</th>
+                                        <th>Name of Institution</th>
+                                        <th>Year of Study/Class</th>
+                                        <th>Total Fees</th>
+                                        <th>Fees Paid</th>
+                                        <th>Outstanding Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td><div> {{form.sibling_f_name}}</div></td>
+                                        <td><div> {{form.sibling_school}}</div></td>
+                                        <td><div> {{form.sibling_class}}</div></td>
+                                        <td><div> {{form.sibling_total_fee}}</div></td>
+                                        <td><div> {{form.sibling_fee_paid}}</div></td>
+                                        <td><div> {{form.sibling_balance}}</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td><div> {{form.second_sibling_name}}</div></td>
+                                        <td><div> {{form.second_sibling_school}}</div></td>
+                                        <td><div> {{form.second_sibling_class}}</div></td>
+                                        <td><div> {{form.second_sibling_total_fee}}</div></td>
+                                        <td><div> {{form.second_sibling_fee_paid}}</div></td>
+                                        <td><div> {{form.second_sibling_balance}}</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.</td>
+                                        <td><div> {{form.third_sibling_name}}</div></td>
+                                        <td><div> {{form.third_sibling_school}}</div></td>
+                                        <td><div> {{form.third_sibling_class}}</div></td>
+                                        <td><div> {{form.third_sibling_total_fee}}</div></td>
+                                        <td><div> {{form.third_sibling_fee_paid}}</div></td>
+                                        <td><div> {{form.third_sibling_balance}}</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.</td>
+                                        <td><div> {{form.fourth_sibling_name}}</div></td>
+                                        <td><div> {{form.fourth_sibling_school}}</div></td>
+                                        <td><div> {{form.fourth_sibling_class}}</div></td>
+                                        <td><div> {{form.fourth_sibling_total_fee}}</div></td>
+                                        <td><div> {{form.fourth_sibling_fee_paid}}</div></td>
+                                        <td><div> {{form.fourth_sibling_balance}}</div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+
+
+                    </div>
+                    <br>
+
+                    <div class="row_buttons">
+                        <div >
+                        <button type="button" class="btn btn-success " onclick="go_to_first_page()">Previous</button>
+                        </div>
+                        <div >
+                        <button type="button" class="btn btn-success" onclick="go_to_docs_page()">Next</button>
+                        </div>
+                    </div>
+                
+                </section>
+
+                <!-- documents -->
+                
+                <section id="docs" class="hide">
+                    <h1>Documents Upload</h1>
+                    <hr>
+                    <h4>Comments on family/parent status</h4>
+                    <h6 class="required">Please upload all scanned documents in pdf format.*</h6>
+                    <div >
+                    <div class="table-wrap">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Identity</th>
+                                        <th>Official Name</th>
+                                        <th>Document(pdf)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>School representative</td>
+                                        <td><div>{{form.school_rep_name}}</div></td>
+                                        <td><div>{{form.school_document}}</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td>Chief/Assistant</td>
+                                        <td><div>{{form.chief_name}}</div></td>
+                                        <td><div>{{form.chief_document}}</div></td>
+                                    </tr>
+                          
+                                    <tr>
+                                        <td>3.</td>
+                                        <td>Area Ward Rep</td>
+                                        <td><div>{{form.mca_name}}</div></td>
+                                        <td><div>{{form.mca_document}}</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.</td>
+                                        <td>Religious Leader</td>
+                                        <td><div>{{form.clergy_name}}</div></td>
+                                        <td><div>{{form.clergy_document}}</div></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="table-wrap">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Document(pdf)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>Official transcript</td>
+                                        <td><div>{{form.transcript_document}}</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td>School fee structure</td>
+                                        <td><div>{{form.fee_structure_document}}</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.</td>
+                                        <td>Recent fee slip</td>
+                                        <td><div>{{form.fee_slip_document}}</div></td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                </div>
+                    </div>
+                    </div>
+                    <br>
+                    <h2>Declaration</h2>
+                    <hr>
+                    <!-- student's declaration -->
+                    <div>
+                    <h4>1. Student's Declaration</h4>
+
+                    <p>I declare that I have read this form/this form has been read to me and I hereby confirm
+                        that the information given herein is true to the best of my knowledge.</p>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label><b>Student's full name</b></label>
+                            {{form.student_declaration}}
+                        </div>
+                       
+                    </div>
+                    </div>
+
+                    <!-- parent's declaration -->
+                    <h4>2. Parent's/Guardian's Declaration</h4>
+                    <p>I declare that I have read this form/this form has been read to me and I hereby confirm
+                        that the information given herein is true to the best of my knowledge.</p>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label><b>Parent/Guardian's full name</b></label>
+                                {{form.parent_guardian_declaration}}
+                            </div>
+                            
+                        </div>
+
+                    <div class="row_buttons">
+                        <button class="btn btn-success" type="button" onclick="go_to_second_page()">Previous</button>
+                        <!-- <button type="submit" class="btn btn-success" id="nextButton" >Submit</button> -->
+                                        <!-- Button to Open the Modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Submit
+  </button>
+                    </div>
+                
+
+
+
+  
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Application Review</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div>Are you sure you want to submit your application?</div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">OK</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+                <script>
+                   
+                    home = document.getElementById('first');
+                    sec = document.getElementById('sec');
+                    docs = document.getElementById('docs');
+
+                    // second form
+                    next_from_first_page = () => {
+                        home.setAttribute('class', 'hide');
+                        sec.removeAttribute('class', 'hide');
+                        sec.setAttribute('class', 'show_next');
+                        
+                        
+                        
+                    }
+
+                    // first form
+                    go_to_first_page = () => {
+                        sec.setAttribute('class', 'hide');
+                        home.removeAttribute('class', 'hide');
+                        home.setAttribute('class', 'show_next');
+                        
+                    }
+                    // docs page
+                    go_to_docs_page = () => {
+                        sec.setAttribute('class', 'hide');
+                        docs.removeAttribute('class', 'hide');
+                    }
+
+                    // sec form from docs
+                    go_to_second_page = () => {
+                        docs.setAttribute('class', 'hide');
+                        sec.removeAttribute('class', 'hide');
+                    }
+
+                    t = document.getElementById('y');
+                    fn = () => {
+                        alert(t.value);
+                    }
+                    // document.getElementById('secNext')
+
+                    // school admitted
+                    $('#school_type').change(function() {
+                        var value = $(this).val();
+                        if(value === 'secondary'){
+                            $('#school_admitted').removeClass('hide');
+                        }
+                        else{
+                            $('#school_admitted').addClass('hide');
+                        }
+                    });
+                     // disability
+                     $('#disabledd').change(function(){
+                        var value = $(this).val();
+                        if(value === 'Yes'){
+                            $("#disability_form").removeClass('hide');
+                        }
+                        else{
+                            $("#disability_form").addClass('hide');
+                        }
+                    });
+                        
+                    // family-type options
+                
+                    $('.family_type').change(function(){
+                        var value = $(this).val();
+                        if(value === 'orphan' || value === 'partial_orphan'){
+                            $('#additional_parent_info').removeClass('hide');
+                        }
+                        else{
+                            $('#additional_parent_info').addClass('hide');
+                        }
+                    });
+
+                    // benefit from other donors
+                    $('.benefitted').change(function(){
+                        var value = $(this).val();
+                        if(value === 'yes'){
+                            $('#donor').removeClass('hide');
+                            $('#additional_parent_info').addClass('hide');
+
+                        }
+                        else{
+                            $('#donor').addClass('hide');
+                        }
+                    });
+                
+                   
+                    // accordion toggle
+                    jQuery(function ($) {
+                        var $active = $('#additional_parent_info .panel-collapse.in').prev().addClass('active');
+                        $active.find('a').prepend('<i class="fa fa-plus"></i>');
+                        $('#additional_parent_info .panel-heading').not($active).find('a').prepend('<span class="fa fa-plus"></span>');
+                        $('#additional_parent_info').on('show.bs.collapse', function (e) {
+                            $('#additional_parent_info .panel-heading.active').removeClass('active').find('.glyphicon').toggleClass('fa fa-minus');
+                            $(e.target).prev().addClass('active').find('.glyphicon').toggleClass('fa fa-minus');
+                        })
+                    });
+                    
+                </script>
+                </form>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,77 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* section {
+            background: #f1f1f1;
+        } */
+        .card{
+            margin: 10px 0;
+            /* border: none; */
+            /* background: #f1f1f1; */
+
+        }
+        .card-header{
+            background: blue;
+            color: white;
+        }
+        
+        .required{
+            color: red;
+        }
+        h1, h5{
+            text-align: center;
+        }
+        .table-wrapper{
+    /* box-shadow: 0 0 1px 0 rgba(0,0,0,.25); */
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+    <title>Bursary Applicant Registration</title>
+</head>
+<body class="container">
+    <section >
+        <!-- <div class="container shadow-sm p-3 mb-5 bg-white rounded w-50"> -->
+            <!-- <div> -->
+            <div class="row"> 
+                <!-- <div class="card table-wrapper"> -->
+                <div class="  col-md-6 mx-auto ">
+                    <div class="card table-wrapper ">
+                        <!-- <div class="col-8 mx-auto"> -->
+                        <div class="card-header ">
+                            <h1>Register</h1>
+                            <h5 style="float: right;"><a href="{% url 'login' %}">Sign in instead?</a></h5>
+                        </div><br>
+                        <div class="card-body ">
+                            {% block content %}
+                            <form action="{% url 'applicant_register' %}" method="POST" novalidate autocomplete="off">
+                                {% csrf_token %}
+                                {% for field in form.visible_fields %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}<span class="required">*</span>
+                                    {% render_field field class="form-control form-control-lg" %}
+                                    {% for error in field.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                                    {% endfor %}
+                                </div><br>
+                                {% endfor %}
+                                <input type="submit" value="Register" class="btn btn-block btn-primary">
+                                <!-- <a href="{% url 'login' %}" type="button" value="Sign In" class="btn btn-block btn-primary"> -->
+                                <br>
+                            </form>
+                            {% endblock %}
+                        </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+</body>
+</html>
