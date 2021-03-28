@@ -26,7 +26,7 @@ SECRET_KEY = '5h@8#ykj2i)&9o)pzst*gywo0tfbg2(7$1nstn&cq%oi7w&t@e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'ibursary_accounts.User'
 
@@ -152,11 +152,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # CHANGED FROM PROJECT_ROOT
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'STATIC'),
+    os.path.join(BASE_DIR, 'STATIC'), # CHANGED FROM PROJECT_ROOT
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -165,5 +165,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATICFILES_DIR = ('static', )
 
 # uploaded files
-MEDIA_URL = '/media/' 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/' 
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
