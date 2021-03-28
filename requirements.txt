@@ -11,105 +11,105 @@ sqlparse==0.3.1
 
 
 
-ng build --prod --output-path /path-to your-project-directory/backend/my-app-name/my-app/static/ang --watch --output-hashing none
+# ng build --prod --output-path /path-to your-project-directory/backend/my-app-name/my-app/static/ang --watch --output-hashing none
 
-ng build --prod --output-path ../Ibursary-backend/ibursary_accounts/static/ang --watch --output-hashing none
+# ng build --prod --output-path ../Ibursary-backend/ibursary_accounts/static/ang --watch --output-hashing none
 
 
-deleting a record:
- python manage.py shell
- from ibursary_accounts.models import model-name
- model-name.objects.filter(pk=, id=).delete()
+# deleting a record:
+#  python manage.py shell
+#  from ibursary_accounts.models import model-name
+#  model-name.objects.filter(pk=, id=).delete()
 
 
 
  
-<div class="check" >
-    <div class="border">
-      <div class="container" >
-        <div class="content"  >
+# <div class="check" >
+#     <div class="border">
+#       <div class="container" >
+#         <div class="content"  >
 
-          <div class="one" >
+#           <div class="one" >
 
-<!-- title -->
-          <div class="title">
-          <div id="bold">{{product.user}} </div>
-          <div class="name">COMPANY NAME <br>COMPANY ADDRESS<br>  CITY, STATE ZIP</div>
-            </div>
+# <!-- title -->
+#           <div class="title">
+#           <div id="bold">{{product.user}} </div>
+#           <div class="name">COMPANY NAME <br>COMPANY ADDRESS<br>  CITY, STATE ZIP</div>
+#             </div>
 
-            <!-- table -->
-            <table class="following" border="1">
-              <tr>
-                <td class="line">This check is awarded to <strong>{{product.user}}</strong> </td></tr>
-              <tr><td class="empty line"> studying at <strong>{{product.institution}}</strong></td></tr>
-              <tr><td class="empty line">registration number {{product.reg}}</td></tr>
-            </table>
+#             <!-- table -->
+#             <table class="following" border="1">
+#               <tr>
+#                 <td class="line">This check is awarded to <strong>{{product.user}}</strong> </td></tr>
+#               <tr><td class="empty line"> studying at <strong>{{product.institution}}</strong></td></tr>
+#               <tr><td class="empty line">registration number {{product.reg}}</td></tr>
+#             </table>
 
-            <!-- cheque number -->
-          <div class="number">00{{product.id}}</div>
+#             <!-- cheque number -->
+#           <div class="number">00{{product.id}}</div>
 
-          </div>
+#           </div>
           
     
     
      
-      <!-- <div class="orderof"><input type="text" value="5000"  name="amount" size="15"><span class="dollar"><span class="bd">*********************</span>kshs</span></div> -->
+#       <!-- <div class="orderof"><input type="text" value="5000"  name="amount" size="15"><span class="dollar"><span class="bd">*********************</span>kshs</span></div> -->
   
-      <table class="info" style="border-collapse:collapse">
-      <thead>
-      <tr>
+#       <table class="info" style="border-collapse:collapse">
+#       <thead>
+#       <tr>
       
-      <th class="chart">date</th>
-      <th class="chart">to the order of</th>
-      <th class="chart">check no.</th>
-      <th class="chart">description</th>
-      <th class="chart" id="discount">category</th>
-      </tr>
-      </thead>
+#       <th class="chart">date</th>
+#       <th class="chart">to the order of</th>
+#       <th class="chart">check no.</th>
+#       <th class="chart">description</th>
+#       <th class="chart" id="discount">category</th>
+#       </tr>
+#       </thead>
 
-    <tbody>
-      <tr>
+#     <tbody>
+#       <tr>
       
-  <td class="blank short"><input type="text" PLACEHOLDER="  /  /  " name="date" size="15"></td>
-      <td class="blank long">{{product.user}}</td>
-      <td class="blank short">00{{product.id}}</td>
-      <td class="blank long des">kiambu bursary education fund</td>
-      <td class="short" id="discount">{{product.school_type}}</td>
-      </tr>
-      </tbody>
-      <!-- </tr>
-      </tbody> -->
-  </table>
+#   <td class="blank short"><input type="text" PLACEHOLDER="  /  /  " name="date" size="15"></td>
+#       <td class="blank long">{{product.user}}</td>
+#       <td class="blank short">00{{product.id}}</td>
+#       <td class="blank long des">kiambu bursary education fund</td>
+#       <td class="short" id="discount">{{product.school_type}}</td>
+#       </tr>
+#       </tbody>
+#       <!-- </tr>
+#       </tbody> -->
+#   </table>
   
-    <div class="amount">
-        <span class="amounts"><p>check</p> <p>amount</p></span>
-        <!-- <div class="sign">$</div> -->
-        <div class="box">
+#     <div class="amount">
+#         <span class="amounts"><p>check</p> <p>amount</p></span>
+#         <!-- <div class="sign">$</div> -->
+#         <div class="box">
           
-          <div class="whole"><input type="text" name="whole" value="5000" size="13" disabled><input type="text" value="00" disabled name="cent" size="13"></div>
-          <div class="cent"></div>
-        </div>
-    </div>
-    <table class="add">
-          <tr><td class="lines"><input type="text" PLACEHOLDER="INSERT_ADDRESS" name="address" size="13"></td></tr>
-          <!-- <tr> -->
-          <tr><td class="lines"><input type="text" PLACEHOLDER="CITY, STATE ZIP" name="citystate" size="13"></td></tr>
-          <!-- <tr> -->
-          <tr><td class="bank">Bank Name, N.A.</td></tr>
-    </table>
-      <table class="signature">
-          <td class="sig">Verified</td>
-          <!-- <tr> -->
-          <td class="mp"></td>
-      </table>
+#           <div class="whole"><input type="text" name="whole" value="5000" size="13" disabled><input type="text" value="00" disabled name="cent" size="13"></div>
+#           <div class="cent"></div>
+#         </div>
+#     </div>
+#     <table class="add">
+#           <tr><td class="lines"><input type="text" PLACEHOLDER="INSERT_ADDRESS" name="address" size="13"></td></tr>
+#           <!-- <tr> -->
+#           <tr><td class="lines"><input type="text" PLACEHOLDER="CITY, STATE ZIP" name="citystate" size="13"></td></tr>
+#           <!-- <tr> -->
+#           <tr><td class="bank">Bank Name, N.A.</td></tr>
+#     </table>
+#       <table class="signature">
+#           <td class="sig">Verified</td>
+#           <!-- <tr> -->
+#           <td class="mp"></td>
+#       </table>
   
   
   
-      </div>
+#       </div>
    
     
-        </div>
-      </div>
-        </div>
-    <!-- </div>
-  </div> -->
+#         </div>
+#       </div>
+#         </div>
+#     <!-- </div>
+#   </div> -->
