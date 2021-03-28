@@ -1,0 +1,1 @@
+web: gunicorn ibursary_accounts.wsgi
